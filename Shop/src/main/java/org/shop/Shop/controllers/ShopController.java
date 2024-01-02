@@ -48,6 +48,12 @@ public class ShopController {
             return "users/create";
         }
 
+        if(!userRepository.findByEmailIs(newUser.getEmail()).isEmpty()) {
+            model.addAttribute("title", "Create Event");
+            model.addAttribute("errorMsg", "User already exists!");
+            return "users/create";
+        }
+
         newUser.setType(UserType.CLIENT);
         userRepository.save(newUser);
         return "redirect:/boardgameWorld";

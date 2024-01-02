@@ -7,7 +7,7 @@
 
 <header th:replace="~{fragments :: navigation}"></header>
 
-<p th:text="${errorMsg}" style="color:red;"></p>
+<p class="error" th:text="${errorMsg}"></p>
 
 <form method="post" action="/boardgameWorld/login">
     <div class="form-group">
