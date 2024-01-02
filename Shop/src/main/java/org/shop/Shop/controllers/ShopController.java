@@ -1,9 +1,10 @@
 package org.shop.Shop.controllers;
 
 import jakarta.validation.Valid;
-import org.shop.Shop.data.UserData;
+import org.shop.Shop.data.UserRepository;
 import org.shop.Shop.models.User;
 import org.shop.Shop.models.UserType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -13,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("boardgameWorld")
 public class ShopController {
 
-//    private List<User> users = new ArrayList<User>() {
-//        {
-//            add(new User("Admin", "admin@a.com", "admin@a.com", 30, UserType.ADMIN));
-//        } };
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     public String displayHomePage(Model model){
@@ -27,7 +26,7 @@ public class ShopController {
     @GetMapping("view")
     public String dispayAllUsers(Model model) {
         model.addAttribute("title", "All Users");
-        model.addAttribute("users", UserData.findAll());
+        model.addAttribute("users", userRepository.findAll());
         return "users/view";
     }
 
@@ -47,7 +46,7 @@ public class ShopController {
         }
 
         newUser.setType(UserType.CLIENT);
-        UserData.add(newUser);
+        userRepository.save(newUser);
         return "redirect:/boardgameWorld";
     }
 

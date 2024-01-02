@@ -1,16 +1,19 @@
 package org.shop.Shop.models;
 
-//import jakarta.persistence.Entity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-//@Entity
+@Entity
 public class User {// extends AbstractEntity {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     @NotBlank(message = "Name is required!")
     private String name;
@@ -28,13 +31,9 @@ public class User {// extends AbstractEntity {
     @DecimalMin(value = "10", message = "You must be at least 10 years old!")
     private int age;
 
-    public User() {
-        id = nextId;
-        nextId ++;
-    }
+    public User() {}
 
     public User(String name, String password, String email, int age, UserType type) {
-        this();
         this.name = name;
         this.password = password;
         this.email = email;
