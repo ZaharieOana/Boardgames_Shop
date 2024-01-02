@@ -1,1 +1,2 @@
 INSERT IGNORE INTO user (id, name, password, email, age, type) VALUES (1, 'Admin', 'admin@a.com', 'admin@a.com', 30, 1);
+INSERT IGNORE INTO game (id, name, type, price) VALUES (1, 'Catan', 'strategie', '70');
