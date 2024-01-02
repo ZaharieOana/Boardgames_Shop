@@ -2,6 +2,7 @@ package org.shop.Shop.models;
 
 //import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -24,6 +25,7 @@ public class User {// extends AbstractEntity {
 
     private UserType type;
 
+    @DecimalMin(value = "10", message = "You must be at least 10 years old!")
     private int age;
 
     public User() {
