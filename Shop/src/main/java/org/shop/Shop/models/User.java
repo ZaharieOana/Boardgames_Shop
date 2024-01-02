@@ -1,19 +1,13 @@
 package org.shop.Shop.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class User {// extends AbstractEntity {
-
-    @Id
-    @GeneratedValue
-    private int id;
+public class User extends AbstractEntity {
 
     @NotBlank(message = "Name is required!")
     private String name;
@@ -39,14 +33,6 @@ public class User {// extends AbstractEntity {
         this.email = email;
         this.age = age;
         this.type = type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public UserType getType() {
