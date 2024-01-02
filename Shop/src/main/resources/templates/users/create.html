@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body class="container">
+
+<header th:replace="~{fragments :: navigation}"></header>
+
+<form method="post" action="/boardgameWorld/signin">
+    <div class="form-group">
+        <label>Name
+<!--                        <input type="text" name="name" class="form-control">-->
+            <input th:field="${user.name}" class="form-control">
+        </label>
+        <p class="error" th:errors="${user.name}"></p>
+    </div>
+    <div class="form-group">
+        <label>Password
+<!--                        <input type="text" name="password" class="form-control">-->
+            <input th:field="${user.password}" class="form-control">
+        </label>
+        <p class="error" th:errors="${user.password}"></p>
+    </div>
+    <div class="form-group">
+        <label>Contact Email
+<!--                        <input type="text" name="email" class="form-control">-->
+            <input th:field="${user.email}" class="form-control">
+        </label>
+        <p class="error" th:errors="${user.email}"></p>
+    </div>
+    <div class="form-group">
+        <label>Age
+<!--            <input type="text" name="age" class="form-control">-->
+                        <input th:field="${user.age}" class="form-control">
+        </label>
+        <p class="error" th:errors="${user.age}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Sign in" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>
