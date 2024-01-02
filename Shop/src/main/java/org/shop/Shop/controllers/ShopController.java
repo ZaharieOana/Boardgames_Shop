@@ -38,12 +38,12 @@ public class ShopController {
     public String processSignInForm(@ModelAttribute @Valid User newUser,
                                     Errors errors, Model model) {
         if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Event");
+            model.addAttribute("title", "Sign In");
             return "users/create";
         }
 
         if(!userRepository.findByEmailIs(newUser.getEmail()).isEmpty()) {
-            model.addAttribute("title", "Create Event");
+            model.addAttribute("title", "Sign In");
             model.addAttribute("errorMsg", "User already exists!");
             return "users/create";
         }
