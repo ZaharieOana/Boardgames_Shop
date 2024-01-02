@@ -57,7 +57,7 @@ public class ClientController {
     public String processBuyGame(@RequestParam(required = false) int[] gameIds) {
         if(gameIds != null) {
             for(int id : gameIds) {
-                saleRepository.save(new Sale(CurrentUser.getId(), id));
+                saleRepository.save(new Sale(userRepository.findById(CurrentUser.getId()).get().getEmail(), gameRepository.findById(id).get().getName()));
             }
         }
 

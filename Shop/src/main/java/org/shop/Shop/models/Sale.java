@@ -5,31 +5,29 @@ import jakarta.persistence.Entity;
 @Entity
 public class Sale extends AbstractEntity{
 
-    private int clientId;
-
-    private int gameId;
+    private String client;
+    private String game;
 
     public Sale() {}
 
-    public Sale(int clientId, int gameId) {
-        this.clientId = clientId;
-        this.gameId = gameId;
+    public Sale(String client, String game) {
+        this.client = client;
+        this.game = game;
     }
 
-    public int getClientId() {
-        return clientId;
+    public String getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(String client) {
+        this.client = client;
     }
 
-    public int getGameId() {
-        return gameId;
+    public String getGame() {
+        return game;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
+    public void setGame(String game) {
+        this.game = game;
     }
-
 }
