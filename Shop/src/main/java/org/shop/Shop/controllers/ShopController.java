@@ -2,6 +2,7 @@ package org.shop.Shop.controllers;
 
 import jakarta.validation.Valid;
 import org.shop.Shop.data.UserRepository;
+import org.shop.Shop.models.CurrentUser;
 import org.shop.Shop.models.User;
 import org.shop.Shop.models.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -71,10 +70,13 @@ public class ShopController {
                                    Model model) {
         List<User> users = userRepository.findByEmailIs(email);
         if(users.isEmpty() || !(users.get(0).getPassword().equals(password))){
+            CurrentUser.setId(-1);
             model.addAttribute("title", "Log In");
             model.addAttribute("errorMsg", "User or Password invalid!");
             return "users/login";
         }
+
+        CurrentUser.setId(users.get(0).getId());
 
         if(users.get(0).getType().equals(UserType.CLIENT))
             return "redirect:/boardgameWorld/client";
