@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("boardgameWorld")
 public class ShopController {
@@ -53,14 +56,24 @@ public class ShopController {
     @GetMapping("login")
     public String displayLogInForm(Model model) {
         model.addAttribute("title", "Log In");
-        return "users/create";
+        return "users/login";
     }
 
     @PostMapping("login")
     public String processLogInForm(@RequestParam String email,
-                                   @RequestParam String password) {
+                                   @RequestParam String password,
+                                   Model model) {
+        List<User> users = userRepository.findByEmailIs(email);
+        if(users.isEmpty() || !(users.get(0).getPassword().equals(password))){
+            model.addAttribute("title", "Log In");
+            model.addAttribute("errorMsg", "User or Password invalid!");
+            return "users/login";
+        }
 
-        return "redirect:/boardgameWorld/client";
+        if(users.get(0).getType().equals(UserType.CLIENT))
+            return "redirect:/boardgameWorld/client";
+
+        return "redirect:/boardgameWorld/admin";
     }
 
 
