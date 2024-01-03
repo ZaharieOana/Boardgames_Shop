@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 
 @Controller
@@ -48,6 +51,7 @@ public class ShopController {
             return "users/create";
         }
 
+        newUser.setPassword(hashPassword(newUser.getPassword()));
         newUser.setType(UserType.CLIENT);
         userRepository.save(newUser);
         return "redirect:/boardgameWorld";
@@ -65,6 +69,9 @@ public class ShopController {
                                    @RequestParam String password,
                                    Model model) {
         List<User> users = userRepository.findByEmailIs(email);
+
+        password = hashPassword(password);
+
         if(users.isEmpty() || !(users.get(0).getPassword().equals(password))){
             model.addAttribute("title", "Log In");
             model.addAttribute("errorMsg", "User or Password invalid!");
@@ -79,5 +86,22 @@ public class ShopController {
         return "redirect:/boardgameWorld/admin";
     }
 
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 }
