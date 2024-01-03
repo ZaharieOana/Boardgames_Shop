@@ -21,19 +21,14 @@ public class ShopController {
 
     @GetMapping
     public String displayHomePage(Model model){
+        CurrentUser.setId(-1);
         model.addAttribute("title", "Welcome to Boardgame World");
         return "start";
     }
 
-    @GetMapping("view")
-    public String dispayAllUsers(Model model) {
-        model.addAttribute("title", "All Users");
-        model.addAttribute("users", userRepository.findAll());
-        return "users/view";
-    }
-
     @GetMapping("signin")
     public String displaySignInForm(Model model) {
+        CurrentUser.setId(-1);
         model.addAttribute("title", "Sign In");
         model.addAttribute(new User());
         return "users/create";
@@ -43,12 +38,12 @@ public class ShopController {
     public String processSignInForm(@ModelAttribute @Valid User newUser,
                                     Errors errors, Model model) {
         if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Event");
+            model.addAttribute("title", "Sign In");
             return "users/create";
         }
 
         if(!userRepository.findByEmailIs(newUser.getEmail()).isEmpty()) {
-            model.addAttribute("title", "Create Event");
+            model.addAttribute("title", "Sign In");
             model.addAttribute("errorMsg", "User already exists!");
             return "users/create";
         }
@@ -60,6 +55,7 @@ public class ShopController {
 
     @GetMapping("login")
     public String displayLogInForm(Model model) {
+        CurrentUser.setId(-1);
         model.addAttribute("title", "Log In");
         return "users/login";
     }
@@ -70,7 +66,6 @@ public class ShopController {
                                    Model model) {
         List<User> users = userRepository.findByEmailIs(email);
         if(users.isEmpty() || !(users.get(0).getPassword().equals(password))){
-            CurrentUser.setId(-1);
             model.addAttribute("title", "Log In");
             model.addAttribute("errorMsg", "User or Password invalid!");
             return "users/login";
