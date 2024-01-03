@@ -24,7 +24,13 @@
     </div>
     <div class="form-group">
         <label>Type
-            <input th:field="${game.type}" class="form-control">
+<!--            <input th:field="${game.type}" class="form-control">-->
+            <select th:field="${game.type}">
+                <option th:each="type : ${types}"
+                        th:value="${type.id}"
+                        th:text="${type.name}">
+                </option>
+            </select>
         </label>
         <p class="error" th:errors="${game.type}"></p>
     </div>

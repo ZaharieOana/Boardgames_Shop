@@ -1,13 +1,11 @@
 package org.shop.Shop.controllers;
 
 import jakarta.validation.Valid;
+import org.shop.Shop.data.GameCatagoryRepository;
 import org.shop.Shop.data.GameRepository;
 import org.shop.Shop.data.SaleRepository;
 import org.shop.Shop.data.UserRepository;
-import org.shop.Shop.models.CurrentUser;
-import org.shop.Shop.models.Game;
-import org.shop.Shop.models.User;
-import org.shop.Shop.models.UserType;
+import org.shop.Shop.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +27,9 @@ public class AdminController {
 
     @Autowired
     private SaleRepository saleRepository;
+
+    @Autowired
+    private GameCatagoryRepository typeRepository;
 
     @GetMapping
     public String displayAdminPage(Model model){
@@ -87,6 +88,7 @@ public class AdminController {
     public String displayAddGameForm(Model model) {
         model.addAttribute("title", "Add Game");
         model.addAttribute(new Game());
+        model.addAttribute("types", typeRepository.findAll());
         return "admin/games";
     }
 
@@ -99,6 +101,26 @@ public class AdminController {
         }
 
         gameRepository.save(newGame);
+        return "redirect:/boardgameWorld/admin";
+    }
+
+    @GetMapping("add_type")
+    public String displayAddTypeForm(Model model) {
+        model.addAttribute("title", "Add Game Type");
+        model.addAttribute(new GameType());
+        return "admin/type";
+    }
+
+    @PostMapping("add_type")
+    public String processAddTypeForm(@ModelAttribute @Valid GameType newType,
+                                     Errors errors, Model model) {
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Add Game Type");
+            model.addAttribute("errorMsg", "Name is required");
+            return "admin/type";
+        }
+
+        typeRepository.save(newType);
         return "redirect:/boardgameWorld/admin";
     }
 
