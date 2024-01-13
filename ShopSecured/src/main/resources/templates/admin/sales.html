@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body class="container">
+
+<header th:replace="~{fragments :: navigation}"></header>
+
+<p th:unless="${sales} and ${sales.size()}">No sales!</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Client</th>
+        <th>Game</th>
+    </tr>
+    </thead>
+    <tr th:each="sale : ${sales}">
+        <td th:text="${sale.client}"></td>
+        <td th:text="${sale.game}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

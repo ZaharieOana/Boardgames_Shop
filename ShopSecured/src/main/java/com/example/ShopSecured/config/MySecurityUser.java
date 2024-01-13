@@ -18,22 +18,20 @@ public class MySecurityUser extends User {
     private String lastName;
     private String fullname;
     private String emailaddress;
-    private LocalDate birthdate;
 
 
     public MySecurityUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities,
-                          String firstName, String lastName, String emailAddress, LocalDate birthdate) {
+                          String firstName, String lastName, String emailAddress) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.firstName = firstName;
         this.lastName = lastName;
         this.fullname = firstName + " " + lastName;
         this.emailaddress = emailAddress;
-        this.birthdate = birthdate;
     }
 
     @Override
     public String toString() {
-        return "MySecurityUser firstName=" + firstName + ", lastName=" + lastName + ", name=" + fullname + ", emailaddress=" + emailaddress + ", birthdate=" + birthdate
+        return "MySecurityUser firstName=" + firstName + ", lastName=" + lastName + ", name=" + fullname + ", emailaddress=" + emailaddress
                 + "] " + super.toString();
     }
 

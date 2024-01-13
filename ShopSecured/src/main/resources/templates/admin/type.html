@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body class="container">
+
+<header th:replace="~{fragments :: navigation}"></header>
+
+<p class="error" th:text="${errorMsg}"></p>
+
+<form method="post" action="/boardgameWorld/admin/add_type">
+    <div class="form-group">
+        <label>Name
+<!--            <input th:field="${type.name}" class="form-control">-->
+            <input type="text" name="name" class="form-control">
+        </label>
+<!--        <p class="error" th:errors="${type.name}"></p>-->
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Type" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>

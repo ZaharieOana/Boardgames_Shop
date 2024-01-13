@@ -27,7 +27,7 @@ public class HomeController {
             UserDto userDto = userService.getLoginUser();
             model.addAttribute("user", userDto);
         }
-        model.addAttribute("title", "Welcome to Boardgame World");
+        model.addAttribute("title", "Boardgame World");
 
         return "index";
     }

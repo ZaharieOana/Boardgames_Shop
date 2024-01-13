@@ -56,6 +56,5 @@ public class User {
     @NaturalId(mutable = true)
     private String emailAddress;
 
-    private LocalDate birthdate;
 
 }

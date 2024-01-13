@@ -14,10 +14,15 @@
         <a href="/register"><span sec:authorize="!isAuthenticated()">Register</span></a>
         <a class="header" href="/logout"><span sec:authorize="isAuthenticated()">Logout</span></a>
         <a class="header" href="/"><span sec:authorize="isAuthenticated()">Home</span></a>
-        <a class="header" href="/user"><span sec:authorize="isAuthenticated() and hasAuthority('USER')">User</span></a>
-        <a class="header" href="/users"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Users</span></a>
+        <a class="header" href="/games"><span sec:authorize="isAuthenticated()">View Games</span></a></p>
+        <a class="header" href="/buy_games"><span sec:authorize="isAuthenticated() and hasAuthority('USER')">Buy Games</span></a>
+        <a class="header" href="/users"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">View Users</span></a>
         <a class="header" href="/roles"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Roles</span></a></p>
-        <a class="header" href="/admin"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Admin</span></a></p>
+<!--        <a class="header" href="/games"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">View Games</span></a></p>-->
+        <a class="header" href="/sales"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">View Sales</span></a></p>
+        <a class="header" href="/add_game"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Add Game</span></a></p>
+        <a class="header" href="/add_admin"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Add Admin</span></a></p>
+        <a class="header" href="/add_type"><span sec:authorize="isAuthenticated() and hasAuthority('ADMIN')">Add Game Type</span></a></p>
     <p></p>
 </div>
 
