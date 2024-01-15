@@ -1,7 +1,7 @@
 package org.shop.Shop.controllers;
 
 import jakarta.validation.Valid;
-import org.shop.Shop.data.UserRepository;
+import org.shop.Shop.repos.UserRepository;
 import org.shop.Shop.models.CurrentUser;
 import org.shop.Shop.models.User;
 import org.shop.Shop.models.UserType;

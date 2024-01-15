@@ -1,11 +1,11 @@
 package org.shop.Shop.controllers;
 
 import jakarta.validation.Valid;
-import org.shop.Shop.data.GameCatagoryRepository;
-import org.shop.Shop.data.GameRepository;
-import org.shop.Shop.data.SaleRepository;
-import org.shop.Shop.data.UserRepository;
 import org.shop.Shop.models.*;
+import org.shop.Shop.services.GameCategoryService;
+import org.shop.Shop.services.GameService;
+import org.shop.Shop.services.SaleService;
+import org.shop.Shop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,41 +23,41 @@ import java.security.MessageDigest;
 public class AdminController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private GameRepository gameRepository;
+    private GameService gameService;
 
     @Autowired
-    private SaleRepository saleRepository;
+    private SaleService saleService;
 
     @Autowired
-    private GameCatagoryRepository typeRepository;
+    private GameCategoryService typeService;
 
     @GetMapping
     public String displayAdminPage(Model model){
-        model.addAttribute("title", "Hello " + userRepository.findById(CurrentUser.getId()).get().getName());
+        model.addAttribute("title", "Hello " + userService.findById(CurrentUser.getId()).get().getName());
         return "admin/admin";
     }
 
     @GetMapping("users")
     public String dispayAllUsers(Model model) {
         model.addAttribute("title", "All Users");
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAll());
         return "admin/users";
     }
 
     @GetMapping("games")
     public String displayGamesTable(Model model){
         model.addAttribute("title", "All Games");
-        model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("games", gameService.findAll());
         return "client/games";
     }
 
     @GetMapping("sales")
     public String displaySalesTable(Model model){
         model.addAttribute("title", "All Sales");
-        model.addAttribute("sales", saleRepository.findAll());
+        model.addAttribute("sales", saleService.findAll());
         return "admin/sales";
     }
 
@@ -76,7 +76,7 @@ public class AdminController {
             return "admin/addAdmin";
         }
 
-        if(!userRepository.findByEmailIs(newUser.getEmail()).isEmpty()) {
+        if(!userService.findByEmail(newUser.getEmail()).isEmpty()) {
             model.addAttribute("title", "Add Admin");
             model.addAttribute("errorMsg", "User already exists!");
             return "admin/addAdmin";
@@ -84,7 +84,7 @@ public class AdminController {
 
         newUser.setPassword(hashPassword(newUser.getPassword()));
         newUser.setType(UserType.ADMIN);
-        userRepository.save(newUser);
+        userService.save(newUser);
         return "redirect:/boardgameWorld/admin";
     }
 
@@ -92,7 +92,7 @@ public class AdminController {
     public String displayAddGameForm(Model model) {
         model.addAttribute("title", "Add Game");
         model.addAttribute(new Game());
-        model.addAttribute("types", typeRepository.findAll());
+        model.addAttribute("types", typeService.findAll());
         return "admin/games";
     }
 
@@ -104,7 +104,7 @@ public class AdminController {
             return "admin/games";
         }
 
-        gameRepository.save(newGame);
+        gameService.save(newGame);
         return "redirect:/boardgameWorld/admin";
     }
 
@@ -124,7 +124,7 @@ public class AdminController {
             return "admin/type";
         }
 
-        typeRepository.save(newType);
+        typeService.save(newType);
         return "redirect:/boardgameWorld/admin";
     }
 

@@ -1,10 +1,10 @@
 package org.shop.Shop.controllers;
 
-import org.shop.Shop.data.GameRepository;
-import org.shop.Shop.data.SaleRepository;
-import org.shop.Shop.data.UserRepository;
+import org.shop.Shop.repos.UserRepository;
 import org.shop.Shop.models.CurrentUser;
 import org.shop.Shop.models.Sale;
+import org.shop.Shop.services.GameService;
+import org.shop.Shop.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +21,10 @@ public class ClientController {
     private UserRepository userRepository;
 
     @Autowired
-    private GameRepository gameRepository;
+    private GameService gameService;
 
     @Autowired
-    private SaleRepository saleRepository;
+    private SaleService saleService;
 
     @GetMapping
     public String displayClientPage(Model model){
@@ -42,14 +42,14 @@ public class ClientController {
     @GetMapping("games")
     public String displayGamesTable(Model model){
         model.addAttribute("title", "Hello " + userRepository.findById(CurrentUser.getId()).get().getName());
-        model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("games", gameService.findAll());
         return "client/games";
     }
 
     @GetMapping("buy")
     public String displayBuyGame(Model model) {
         model.addAttribute("title", "Buy Games");
-        model.addAttribute("games", gameRepository.findAll());
+        model.addAttribute("games", gameService.findAll());
         return "client/buy";
     }
 
@@ -57,7 +57,7 @@ public class ClientController {
     public String processBuyGame(@RequestParam(required = false) int[] gameIds) {
         if(gameIds != null) {
             for(int id : gameIds) {
-                saleRepository.save(new Sale(userRepository.findById(CurrentUser.getId()).get().getEmail(), gameRepository.findById(id).get().getName()));
+                saleService.save(new Sale(userRepository.findById(CurrentUser.getId()).get().getEmail(), gameService.findById(id).get().getName()));
             }
         }
 

@@ -1,4 +1,4 @@
-package org.shop.Shop.data;
+package org.shop.Shop.repos;
 
 import org.shop.Shop.models.Sale;
 import org.springframework.data.repository.CrudRepository;
