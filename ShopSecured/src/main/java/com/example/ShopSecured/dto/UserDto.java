@@ -2,7 +2,6 @@ package com.example.ShopSecured.dto;
 
 import lombok.Builder;
 import java.util.List;
-import java.time.LocalDate;
 
 @Builder
 public record UserDto(
