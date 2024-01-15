@@ -1,0 +1,2 @@
+INSERT IGNORE INTO user (id, name, password, email, age, type) VALUES (1, 'Admin', '838a84b4af79547af458ef56f0e9087cfb8c99bf0d05fc8d3b62d19ecedfad2e', 'admin@a.com', 30, 1);
+INSERT IGNORE INTO game_type (id, name) VALUES (1, 'Strategy');

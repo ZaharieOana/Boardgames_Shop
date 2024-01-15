@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: head}"></head>
+
+<body class="container">
+
+<header th:replace="~{fragments :: navigation}"></header>
+
+<p class="error" th:text="${errorMsg}"></p>
+
+<form method="post" action="/boardgameWorld/login">
+    <div class="form-group">
+        <label>Email
+            <input type="text" name="email" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Password
+            <input type="password" name="password" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Log in" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>
